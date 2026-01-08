@@ -1,6 +1,7 @@
 package fischerchess
 
 import (
+	"slices"
 	"testing"
 
 	"github.com/elaxer/chess"
@@ -9,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestNewBoardFilled(t *testing.T) {
+func TestNewBoard(t *testing.T) {
 	for _, variant := range Variants {
 		t.Run(variant, func(t *testing.T) {
 			t.Parallel()
@@ -49,8 +50,8 @@ func assertMirroredPieces(t *testing.T, board chess.Board) {
 		require.NotNilf(t, piece, "expected mirrored piece at %s, got nil", mirroredPos)
 		require.Falsef(
 			t,
-			mirroredPiece.Notation() != piece.Notation() || mirroredPiece.Side() == piece.Side(),
-			"expected mirrored piece at %s to be %s of opposite side, got %v",
+			mirroredPiece.Notation() != piece.Notation() || mirroredPiece.Color() == piece.Color(),
+			"expected mirrored piece at %s to be %s of opposite color, got %v",
 			mirroredPos,
 			piece.Notation(),
 			mirroredPiece,
@@ -59,7 +60,9 @@ func assertMirroredPieces(t *testing.T, board chess.Board) {
 }
 
 func assertBishops(t *testing.T, board chess.Board) {
-	bishops := board.Squares().GetPieces(standardchess.NotationBishop, chess.SideWhite)
+	bishops := slices.Collect(
+		board.Squares().GetPieces(standardchess.NotationBishop, chess.ColorWhite),
+	)
 	require.Equalf(t, 2, len(bishops), "expected 2 white bishops, got %d", len(bishops))
 
 	blackBishopPos := board.Squares().GetByPiece(bishops[0])
@@ -74,19 +77,20 @@ func assertBishops(t *testing.T, board chess.Board) {
 }
 
 func assertKingBetweenRooks(t *testing.T, board chess.Board) {
-	_, kingPos := board.Squares().FindPiece(standardchess.NotationKing, chess.SideWhite)
+	_, kingPos := board.Squares().FindPiece(standardchess.NotationKing, chess.ColorWhite)
 	require.False(t, kingPos.IsEmpty(), "king is not found")
 
-	hasLeftRook := hasRook(board.Squares(), kingPos, chess.DirectionLeft, chess.SideWhite)
+	hasLeftRook := hasRook(board.Squares(), kingPos, chess.DirectionLeft, chess.ColorWhite)
 	require.Truef(t, hasLeftRook, "no rook found to the left of the king at %s", kingPos)
 
-	hasRightRook := hasRook(board.Squares(), kingPos, chess.DirectionRight, chess.SideWhite)
+	hasRightRook := hasRook(board.Squares(), kingPos, chess.DirectionRight, chess.ColorWhite)
 	require.Truef(t, hasRightRook, "no rook found to the right of the king at %s", kingPos)
 }
 
-func hasRook(squares *chess.Squares, from, direction chess.Position, side chess.Side) bool {
+func hasRook(squares *chess.Squares, from, direction chess.Position, color chess.Color) bool {
 	for _, piece := range squares.IterByDirection(from, direction) {
-		if piece != nil && piece.Notation() == standardchess.NotationRook && piece.Side() == side {
+		if piece != nil && piece.Notation() == standardchess.NotationRook &&
+			piece.Color() == color {
 			return true
 		}
 	}

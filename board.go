@@ -9,10 +9,9 @@ import (
 	"github.com/elaxer/standardchess/encoding/fen"
 )
 
-// NewBoardFilled creates a new Fischer Random Chess board with pieces arranged
-// according to one of the 960 valid starting positions, selected randomly using
-// the provided rand.Rand source.
-func NewBoardFilled() chess.Board {
+// NewBoard creates a new Fischer Random Chess board with pieces arranged
+// according to one of the 960 valid starting positions, selected randomly.
+func NewBoard() chess.Board {
 	//nolint:gosec
 	fenStr := Variants[rand.IntN(len(Variants))]
 
