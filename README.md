@@ -6,7 +6,7 @@ A small Go library that provides Fischer Random (Chess960) starting positions an
 ## Features
 
 - Provides the full list of 960 valid starting piece placements in `Variants`.
-- Convenience function `NewBoardFilled()` that returns a random Chess board arranged according to one of the 960 valid starting positions.
+- Convenience function `NewBoard()` that returns a random Chess board arranged according to one of the 960 valid starting positions.
 - Test coverage validating position symmetry, bishop coloring, and castling availability.
 
 ## Quick start
@@ -47,7 +47,7 @@ if err != nil {
 
 ## API
 
-- `func NewBoardFilled() chess.Board` — returns a new board with a randomly selected Fischer Random starting layout.
+- `func NewBoard() chess.Board` — returns a new board with a randomly selected Fischer Random starting layout.
 - `var Variants []string` — array containing 960 valid starting piece placement FENs (piece placement only, without side-to-move, castling, etc.).
 
 ## Testing

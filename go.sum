@@ -2,6 +2,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/elaxer/chess v1.2.0 h1:73VM7bY3TP+5UwTf8GMMzDifvJkPz4zD2R7xdbbmjRc=
 github.com/elaxer/chess v1.2.0/go.mod h1:PHrPrHtUHUz++5e7PSSy086hbKCGl+5XORFZod/xKFw=
+github.com/elaxer/chess v1.2.1 h1:EeeRGvU0hJ9BJVXGMd40P9H3VKxlHEkZCY0iWEfVbUE=
+github.com/elaxer/chess v1.2.1/go.mod h1:PHrPrHtUHUz++5e7PSSy086hbKCGl+5XORFZod/xKFw=
 github.com/elaxer/rgx v0.0.0-20250611140943-48f730656186 h1:jn71rfQtSzK7VRrAcnw+WhJfX0xgNyvvYnXnap3OzSM=
 github.com/elaxer/rgx v0.0.0-20250611140943-48f730656186/go.mod h1:0KnoxODrl3YpSdu9Oq3Szgdv3XAPAjmGdTNBbhLq7ck=
 github.com/elaxer/standardchess v0.4.0 h1:ggRNSaqirsFc5LmMNRPqID5S+J0sw3z0EBRjgT02kkk=

@@ -3,7 +3,7 @@ module github.com/elaxer/fischerchess
 go 1.23.7
 
 require (
-	github.com/elaxer/chess v1.2.0
+	github.com/elaxer/chess v1.2.1
 	github.com/elaxer/standardchess v0.4.0
 	github.com/stretchr/testify v1.11.1
 )
