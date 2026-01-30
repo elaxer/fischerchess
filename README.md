@@ -30,7 +30,7 @@ import (
 
 func main() {
 	board := fischerchess.NewBoard()
-	fmt.Println(fen.Encode(board)) // example: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+	fmt.Println(fen.Encode(board).String()) // example: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 }
 ```
 
