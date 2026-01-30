@@ -38,10 +38,10 @@ func TestNewBoard(t *testing.T) {
 
 func TestMakeMoveWithUndo(t *testing.T) {
 	tests := []struct {
-		name    string
-		initFEN string
-		pgnStr  string
-		wantFEN string
+		name       string
+		initFENStr string
+		pgnStr     string
+		wantFENStr string
 	}{
 		{
 			"https://www.chess.com/game/live/143486290046",
@@ -93,18 +93,18 @@ Rde8 15. Qa6 Kd7 16. Na5 Nxa5 17. Qxa5 Ra8 18. Qb5+ Ke7 19. Bb4 Rgb8 20. Qc6 Qa2
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			board, err := fen.Decode(tt.initFEN)
+			board, err := fen.Decode(tt.initFENStr)
 			require.NoError(t, err)
 
-			_, moves, err := pgn.Decode(tt.pgnStr)
+			pgn, err := pgn.FromString(tt.pgnStr)
 			require.NoError(t, err)
-			for _, move := range moves {
+			for _, move := range pgn.Moves() {
 				result, err := board.MakeMove(move)
 				require.NotNil(t, result)
 				require.NoError(t, err)
 			}
 
-			require.Equal(t, tt.wantFEN, fen.Encode(board))
+			require.Equal(t, tt.wantFENStr, fen.Encode(board).String())
 
 			for i := range board.MoveHistory() {
 				result, err := board.UndoLastMove()
@@ -113,14 +113,14 @@ Rde8 15. Qa6 Kd7 16. Na5 Nxa5 17. Qxa5 Ra8 18. Qb5+ Ke7 19. Bb4 Rgb8 20. Qc6 Qa2
 			}
 
 			afterFEN := fen.Encode(board)
-			assert.Equal(t, tt.initFEN, afterFEN)
+			assert.Equal(t, tt.initFENStr, afterFEN.String())
 		})
 	}
 }
 
 func assertCastlings(t *testing.T, board chess.Board, variant string) {
 	boardFen := fen.Encode(board)
-	require.Equal(t, variant+" w KQkq - 0 1", boardFen)
+	require.Equal(t, variant+" w KQkq - 0 1", boardFen.String())
 }
 
 func assertMirroredPieces(t *testing.T, board chess.Board) {
